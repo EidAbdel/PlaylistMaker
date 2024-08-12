@@ -16,8 +16,7 @@ class MainSetting : AppCompatActivity() {
 
         val bt_back_main_menu = findViewById<Button>(R.id.back_setting_bt)
         bt_back_main_menu.setOnClickListener {
-            val displayIntent = Intent(this, MainActivity::class.java)
-            startActivity(displayIntent)
+            finish()
         }
     }
 }

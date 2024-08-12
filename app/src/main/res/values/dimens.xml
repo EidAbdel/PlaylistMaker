@@ -4,4 +4,7 @@
     <dimen name="medium_padding">8dp</dimen>
     <dimen name="button_text_size">22sp</dimen>
     <dimen name="text_size_list">16sp</dimen>
+    <dimen name="zero_height">0dp</dimen>
+    <dimen name="margin">16dp</dimen>
+    <dimen name="radius">16dp</dimen>
 </resources>
