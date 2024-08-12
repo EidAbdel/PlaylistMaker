@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="primary_text_size">24sp</dimen>
+    <dimen name="medium_padding">8dp</dimen>
+    <dimen name="button_text_size">22sp</dimen>
+    <dimen name="text_size_list">16sp</dimen>
+</resources>

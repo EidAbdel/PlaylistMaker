@@ -1,0 +1,167 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/setting"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/back_setting_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="left|bottom"
+            android:backgroundTint="@color/white"
+            android:text="@string/setting"
+            android:textColor="@color/black"
+            android:textIsSelectable="true"
+            android:textSize="@dimen/primary_text_size"
+            app:icon="@drawable/back"
+            app:iconGravity="textStart"
+            app:iconTint="@color/black"
+            tools:ignore="RtlHardcoded" />
+
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingTop="24dp"
+        android:paddingRight="18dp"
+        tools:ignore="RtlHardcoded">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:paddingVertical='21dp'
+                android:text="@string/dark_themes"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_list"
+
+                tools:ignore="RtlHardcoded"
+
+                />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:paddingVertical='21dp'
+                android:text="@string/Share"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_list"
+
+                tools:ignore="RtlHardcoded"
+
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:backgroundTint="@color/white"
+
+                app:icon="@drawable/share"
+                app:iconGravity="end"
+                app:iconTint="@color/gray"
+
+                />
+
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:paddingVertical='21dp'
+                android:text="@string/support"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_list"
+
+                tools:ignore="RtlHardcoded"
+
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:backgroundTint="@color/white"
+                app:icon="@drawable/support"
+                app:iconGravity="end"
+                app:iconTint="@color/gray"
+
+
+                />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:paddingVertical='21dp'
+                android:text="@string/user_agreement"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_list"
+
+                tools:ignore="RtlHardcoded"
+
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:backgroundTint="@color/white"
+                app:icon="@drawable/next"
+                app:iconGravity="end"
+                app:iconTint="@color/gray"
+
+
+                />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

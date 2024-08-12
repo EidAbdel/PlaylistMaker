@@ -1,19 +1,102 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@color/blue"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingStart="12dp"
+        android:paddingTop="10dp"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        tools:ignore="RtlSymmetry">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="@dimen/primary_text_size"
+
+            tools:ignore="RtlHardcoded" />
+
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:paddingHorizontal="12dp"
+        android:paddingEnd="24dp"
+        tools:ignore="RtlSymmetry">
+
+
+        <Button
+            android:id="@+id/find_bt"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:foreground="?attr/selectableItemBackground"
+            android:text="@string/find"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textIsSelectable="true"
+            android:textSize="@dimen/button_text_size"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/find"
+            app:iconGravity="textStart"
+            app:iconTint="@color/black"
+            tools:ignore="NestedWeights" />
+
+        <Button
+            android:id="@+id/media_bt"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:foreground="?attr/selectableItemBackground"
+            android:text="@string/media"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textIsSelectable="true"
+            android:textSize="@dimen/button_text_size"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/media"
+            app:iconGravity="textStart"
+            app:iconTint="@color/black" />
+
+        <Button
+            android:id="@+id/setting_bt"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:foreground="?attr/selectableItemBackground"
+            android:text="@string/setting"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textIsSelectable="true"
+            android:textSize="@dimen/button_text_size"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/setting"
+            app:iconGravity="textStart"
+            app:iconTint="@color/black" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
