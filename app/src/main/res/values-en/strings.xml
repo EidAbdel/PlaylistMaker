@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_hello">Hello, Practicum</string>
+    <string name="setting">Setting</string>
+    <string name="media">Media</string>
+    <string name="find">Search</string>
+    <string name="dark_themes">Dark theme</string>
+    <string name="support">Support</string>
+    <string name="Share">Share</string>
+    <string name="user_agreement">User Agreement</string>
 </resources>

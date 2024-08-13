@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MainLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/black</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="MainMenuLayout" parent="@style/MainLayout">
+
+    </style>
+
+
+    <style name="ButtonStyleSetting" parent="@style/Widget.AppCompat.Button.Borderless">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/black</item>
+
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textFontWeight">400</item>
+
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_list</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:gravity">left|center</item>
+        <item name="android:padding">@dimen/margin</item>
+        <item name="iconGravity">end</item>
+        <item name="iconTint">@color/gray_x_white</item>
+
+
+    </style>
+    <style name="HeaderFontStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:textSize">@dimen/primary_text_size</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
+
+
+
+</resources>

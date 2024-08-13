@@ -5,9 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="@dimen/medium_padding"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    style="@style/MainLayout"
     android:id="@+id/setting"
 
     >
@@ -16,16 +14,14 @@
         android:id="@+id/tb_back_setting_bt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:navigationIcon="@drawable/back">
+        android:theme="@style/Theme.HeaderIcon"
+        >
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
             android:text="@string/setting"
-            android:textColor="@color/black"
-            android:textSize="@dimen/primary_text_size"
+            style="@style/HeaderFontStyle"
             />
     </androidx.appcompat.widget.Toolbar>
+
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,75 +32,38 @@
         tools:ignore="RtlHardcoded" />
 
     <com.google.android.material.button.MaterialButton
+
         android:id="@+id/share_bt"
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:backgroundTint="@color/white"
-
         android:text="@string/Share"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_size_list"
-        android:textAllCaps="false"
-        android:gravity="left|center"
-
         app:icon="@drawable/share"
-        app:iconGravity="end"
-        app:iconTint="@color/gray"
-        android:padding="@dimen/margin"
+        tools:ignore="RtlHardcoded"
 
-        style="?android:attr/borderlessButtonStyle"
+        style="@style/ButtonStyleSetting"
 
-        tools:ignore="RtlHardcoded" />
+        />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/support_bt"
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-
-        android:backgroundTint="@color/white"
-
         android:text="@string/support"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_size_list"
-        android:textAllCaps="false"
-        android:gravity="left|center"
-
         app:icon="@drawable/support"
-        app:iconGravity="end"
-        app:iconTint="@color/gray"
-        android:padding="@dimen/margin"
+        tools:ignore="RtlHardcoded"
 
-        style="?android:attr/borderlessButtonStyle"
+        style="@style/ButtonStyleSetting"
 
-        tools:ignore="RtlHardcoded" />
+        />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/user_agreement_bt"
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-
-        android:backgroundTint="@color/white"
-
         android:text="@string/user_agreement"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_size_list"
-        android:textAllCaps="false"
-        android:gravity="left|center"
-
         app:icon="@drawable/next"
-        app:iconGravity="end"
-        app:iconTint="@color/gray"
-        android:padding="@dimen/margin"
+        tools:ignore="RtlHardcoded"
 
-        style="?android:attr/borderlessButtonStyle"
+        style="@style/ButtonStyleSetting"
 
-        tools:ignore="RtlHardcoded" />
+         />
 
 
 </LinearLayout>
