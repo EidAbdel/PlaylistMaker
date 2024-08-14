@@ -51,7 +51,7 @@
         <item name="android:gravity">left|center</item>
         <item name="android:padding">@dimen/margin</item>
         <item name="iconGravity">end</item>
-        <item name="iconTint">@color/gray_x_white</item>
+        <item name="iconTint">@color/icon_color</item>
 
 
     </style>
