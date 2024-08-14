@@ -2,4 +2,6 @@
 <resources>
     <color name="icon_color">#FFFFFF</color>
     <color name="icon_toolbar_color">#FFFFFF</color>
+    <color name="textColorHint">#1A1B22</color>
+    <color name="editTextBackground">#FFFFFF</color>
 </resources>

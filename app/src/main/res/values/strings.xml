@@ -7,4 +7,6 @@
     <string name="support">Написать в поддержку</string>
     <string name="Share">Поделиться приложением</string>
     <string name="user_agreement">Пользовательское соглашение</string>
+    <string name="search">Поиск</string>
+    <string name="clearSearch">Очистить поисковый запрос</string>
 </resources>
