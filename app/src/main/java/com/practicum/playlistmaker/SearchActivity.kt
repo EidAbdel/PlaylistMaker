@@ -13,14 +13,37 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 
 class SearchActivity : AppCompatActivity() {
+    private var textEditTextValue: String = INPUT_EDIT_TEXT_VALUE
+
+    companion object {
+        const val EDIT_TEXT_VALUE = "EDIT_TEXT_VALUE"
+        const val INPUT_EDIT_TEXT_VALUE = ""
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(EDIT_TEXT_VALUE, EDIT_TEXT_VALUE)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        textEditTextValue = savedInstanceState.getString(EDIT_TEXT_VALUE, INPUT_EDIT_TEXT_VALUE)
+
+    }
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_search)
 
+
         val btBackMainMenu = findViewById<Toolbar>(R.id.tb_back_search)
         val btClear = findViewById<Button>(R.id.bt_clear_search)
         val edSearch = findViewById<EditText>(R.id.ed_search)
+
+        edSearch.setText(textEditTextValue)
 
         btBackMainMenu.setOnClickListener {
             finish()
@@ -42,6 +65,7 @@ class SearchActivity : AppCompatActivity() {
             }
             override fun afterTextChanged(editable: Editable?) {
                 // TODO: Перехват текста сразу после изменения, изменения не увидим, но получим изменённый текст
+                textEditTextValue = editable.toString()
             }
 
 
