@@ -14,7 +14,7 @@ class MainSetting : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main_setting)
 
-        val btBackMainMenu = findViewById<Toolbar>(R.id.tb_back_setting_bt)
+        val btBackMainMenu = findViewById<Toolbar>(R.id.tb_back_setting)
         val btShare = findViewById<Button>(R.id.bt_share)
         val btSupport = findViewById<Button>(R.id.bt_support)
         val btUserAgreement = findViewById<Button>(R.id.bt_user_agreement)

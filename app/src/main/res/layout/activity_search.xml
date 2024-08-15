@@ -3,7 +3,6 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/setting"
     style="@style/MainLayout"
     android:padding="@dimen/medium_padding"
@@ -11,7 +10,7 @@
     >
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tb_back_setting_bt"
+        android:id="@+id/tb_back_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/Theme.HeaderIcon">
@@ -41,6 +40,7 @@
         android:textSize="@dimen/text_size_list"
         android:fontFamily="@font/ys_display_regular"
         android:textFontWeight="400"
+        android:textColor="@color/textColorHint"
 
         android:background="@color/editTextBackground"
         />
