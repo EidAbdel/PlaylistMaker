@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/setting"
-    style="@style/MainLayout"
-    android:padding="@dimen/medium_padding"
 
-    >
+    android:id="@+id/setting"
+    style="@style/MainLayout">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_back_search"
@@ -20,38 +16,44 @@
             android:text="@string/search" />
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/ed_search"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding"
-        android:layout_marginHorizontal="@dimen/margin"
-        android:layout_marginVertical="@dimen/half_margin"
-        app:cornerRadius="@dimen/radius"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/padding"
+        android:paddingVertical="@dimen/medium_padding"
+        >
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/ed_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ed_background"
+            android:drawableStart="@drawable/ed_find"
+            android:drawablePadding="@dimen/medium_padding"
+            android:fontFamily="@font/ys_display_regular"
+            android:hint="@string/search"
+            android:inputType="text"
+            android:lines="1"
+            android:singleLine="true"
+            android:maxLength="30"
+            android:padding="@dimen/padding"
+            android:textColor="@color/black"
+            android:textColorHint="@color/textColorHint"
+            android:textFontWeight="400"
 
 
-        android:drawableStart="@drawable/ed_find"
-        android:drawablePadding="10dp"
-        android:lines="1"
-        android:maxLength="30"
-        android:inputType="text"
-        android:hint="@string/search"
-        android:textColorHint="@color/textColorHint"
-        android:textSize="@dimen/text_size_list"
-        android:fontFamily="@font/ys_display_regular"
-        android:textFontWeight="400"
-        android:textColor="@color/textColorHint"
+            android:textSize="@dimen/text_size_list"
 
-        android:background="@color/editTextBackground"
-        />
+            />
+        <ImageView
+            android:id="@+id/im_clear_search"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end|center"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:visibility="gone" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/bt_clear_search"
+    </FrameLayout>
 
-        android:text="@string/clearSearch"
-        android:visibility="gone"
-        style="@style/ButtonStyleSetting"
-
-        />
 
 </LinearLayout>

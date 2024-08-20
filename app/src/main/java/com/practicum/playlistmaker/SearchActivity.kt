@@ -8,6 +8,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -15,10 +16,7 @@ import androidx.appcompat.widget.Toolbar
 class SearchActivity : AppCompatActivity() {
     private var textEditTextValue: String = INPUT_EDIT_TEXT_VALUE
 
-    companion object {
-        const val EDIT_TEXT_VALUE = "EDIT_TEXT_VALUE"
-        const val INPUT_EDIT_TEXT_VALUE = ""
-    }
+
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -40,7 +38,7 @@ class SearchActivity : AppCompatActivity() {
 
 
         val btBackMainMenu = findViewById<Toolbar>(R.id.tb_back_search)
-        val btClear = findViewById<Button>(R.id.bt_clear_search)
+        val imClear = findViewById<ImageView>(R.id.im_clear_search)
         val edSearch = findViewById<EditText>(R.id.ed_search)
 
         edSearch.setText(textEditTextValue)
@@ -49,7 +47,7 @@ class SearchActivity : AppCompatActivity() {
             finish()
         }
 
-        btClear.setOnClickListener {
+        imClear.setOnClickListener {
             edSearch.setText("")
             edSearch.clearFocus()
             hideSoftKeyboard(it)
@@ -61,7 +59,7 @@ class SearchActivity : AppCompatActivity() {
             }
             override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int){
                 // TODO: перехват самого события изменения текст не увидим но сможем посмотреть что изменилось
-                btClear.visibility = buttonVisibility(charSequence)
+                imClear.visibility = buttonVisibility(charSequence)
             }
             override fun afterTextChanged(editable: Editable?) {
                 // TODO: Перехват текста сразу после изменения, изменения не увидим, но получим изменённый текст
@@ -86,6 +84,9 @@ class SearchActivity : AppCompatActivity() {
         val softKeyboard = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         softKeyboard.hideSoftInputFromWindow(view.windowToken, 0)
     }
-
+    companion object {
+        const val EDIT_TEXT_VALUE = "EDIT_TEXT_VALUE"
+        const val INPUT_EDIT_TEXT_VALUE = ""
+    }
 
 }
