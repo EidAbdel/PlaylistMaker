@@ -26,7 +26,7 @@ class MainSetting : AppCompatActivity() {
         btShare.setOnClickListener {
             val shareIntent = Intent(Intent.ACTION_SEND)
             shareIntent.setType("text/plain")
-            shareIntent.putExtra(Intent.EXTRA_TEXT,getString(R.string.shareLink) )
+            shareIntent.putExtra(Intent.EXTRA_TEXT,getString(R.string.share_link) )
             startActivity(Intent.createChooser(shareIntent, null))
         }
 
@@ -34,14 +34,14 @@ class MainSetting : AppCompatActivity() {
         btSupport.setOnClickListener {
             val supportIntent = Intent(Intent.ACTION_SENDTO)
             supportIntent.data = Uri.parse("mailto:")
-            supportIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.emailFROM)))
-            supportIntent.putExtra(Intent.EXTRA_TITLE, getString(R.string.emailTitle))
-            supportIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.emailBody))
+            supportIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.emai_from)))
+            supportIntent.putExtra(Intent.EXTRA_TITLE, getString(R.string.email_title))
+            supportIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.email_body))
             startActivity(supportIntent)
         }
 
         btUserAgreement.setOnClickListener {
-            val agreementIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.userAgreementLink)))
+            val agreementIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.user_agreement_link)))
             startActivity(agreementIntent)
         }
 

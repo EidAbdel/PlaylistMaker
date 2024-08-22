@@ -3,13 +3,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:id="@+id/setting"
-    style="@style/MainLayout">
+    style="@style/MainLayout"
+    android:paddingTop="@dimen/main_layout_padding_top"
+    >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_back_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.HeaderIcon">
+        android:theme="@style/Theme.HeaderIcon"
+        >
 
         <TextView
             style="@style/HeaderFontStyle"
@@ -26,7 +29,8 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/ed_search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/ed_height"
+            android:paddingVertical="@dimen/medium_padding"
             android:background="@drawable/ed_background"
             android:drawableStart="@drawable/ed_find"
             android:drawablePadding="@dimen/medium_padding"
@@ -36,21 +40,22 @@
             android:lines="1"
             android:singleLine="true"
             android:maxLength="30"
-            android:padding="@dimen/padding"
+
             android:textColor="@color/black"
-            android:textColorHint="@color/textColorHint"
+            android:textColorHint="@color/text_color_hint"
             android:textFontWeight="400"
 
-
+            android:paddingStart="@dimen/ed_padding_start"
             android:textSize="@dimen/text_size_list"
 
             />
         <ImageView
+            android:paddingEnd="@dimen/im_padding_end"
             android:id="@+id/im_clear_search"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="end|center"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:src="@drawable/clear"
             android:visibility="gone" />
 
     </FrameLayout>

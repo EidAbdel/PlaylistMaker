@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="icon_color">#FFFFFF</color>
+    <color name="icon_clear_color">#1A1B22</color>
     <color name="icon_toolbar_color">#FFFFFF</color>
-    <color name="textColorHint">#1A1B22</color>
-    <color name="editTextBackground">#FFFFFF</color>
+    <color name="text_color_hint">#1A1B22</color>
+    <color name="edit_text_background">#FFFFFF</color>
 </resources>

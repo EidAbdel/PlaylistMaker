@@ -3,12 +3,12 @@
     <string name="setting">Setting</string>
     <string name="media">Media</string>
     <string name="find">Search</string>
-    <string name="darkThemes">Dark theme</string>
+    <string name="dark_themes">Dark theme</string>
     <string name="support">Support</string>
     <string name="share">Share</string>
-    <string name="userAgreement">User Agreement</string>
+    <string name="user_agreement">User Agreement</string>
     <string name="search">Search</string>
-    <string name="clearSearch">Clear Search</string>
-    <string name="emailTitle">Thanks to the developers for the cool application!</string>
-    <string name="emailBody">Message to developers of the Playlist Maker application</string>
+    <string name="clear_search">Clear Search</string>
+    <string name="email_title">Thanks to the developers for the cool application!</string>
+    <string name="email_body">Message to developers of the Playlist Maker application</string>
 </resources>

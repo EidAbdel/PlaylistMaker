@@ -1,17 +1,17 @@
 <resources>
-    <string name="appName" translatable="false">Playlist Maker</string>
+    <string name="app_name" translatable="false">Playlist Maker</string>
     <string name="setting">Настройки</string>
     <string name="media">Медиатека</string>
     <string name="find">Поиск</string>
-    <string name="darkThemes">Темная тема</string>
+    <string name="dark_themes">Темная тема</string>
     <string name="support">Написать в поддержку</string>
     <string name="share">Поделиться приложением</string>
-    <string name="userAgreement">Пользовательское соглашение</string>
+    <string name="user_agreement">Пользовательское соглашение</string>
     <string name="search">Поиск</string>
-    <string name="clearSearch">Очистить поисковый запрос</string>
-    <string name="shareLink" translatable="false">https://practicum.yandex.ru/android-developer/?from=catalog</string>
-    <string name="emailFROM" translatable="false">abdel.eid@yandex.ru</string>
-    <string name="emailTitle">Спасибо разработчикам и разработчицам за крутое приложение!</string>
-    <string name="emailBody">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
-    <string name="userAgreementLink" translatable="false">https://yandex.ru/legal/practicum_offer/</string>
+    <string name="clear_search">Очистить поисковый запрос</string>
+    <string name="share_link" translatable="false">https://practicum.yandex.ru/android-developer/?from=catalog</string>
+    <string name="emai_from" translatable="false">abdel.eid@yandex.ru</string>
+    <string name="email_title">Спасибо разработчикам и разработчицам за крутое приложение!</string>
+    <string name="email_body">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
+    <string name="user_agreement_link" translatable="false">https://yandex.ru/legal/practicum_offer/</string>
 </resources>

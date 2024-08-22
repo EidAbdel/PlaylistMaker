@@ -9,4 +9,8 @@
     <dimen name="radius">16dp</dimen>
     <dimen name="padding">16dp</dimen>
     <dimen name="half_margin">8dp</dimen>
+    <dimen name="ed_padding_start">12dp</dimen>
+    <dimen name="main_layout_padding_top">10dp</dimen>
+    <dimen name="im_padding_end">10dp</dimen>
+    <dimen name="ed_height">36dp</dimen>
 </resources>
