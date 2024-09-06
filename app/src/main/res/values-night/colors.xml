@@ -5,4 +5,6 @@
     <color name="icon_toolbar_color">#FFFFFF</color>
     <color name="text_color_hint">#1A1B22</color>
     <color name="edit_text_background">#FFFFFF</color>
+    <color name="text_color_track">#FFFFFF</color>
+    <color name="black_white">#FFFFFF</color>
 </resources>

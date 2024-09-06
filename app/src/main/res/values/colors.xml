@@ -6,6 +6,7 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="black_white">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="blue">#3772E7</color>
     <color name="icon_color">#AEAFB4</color>
@@ -13,5 +14,6 @@
     <color name="dark_gray">#1A1B22</color>
     <color name="icon_toolbar_color">#1A1B22</color>
     <color name="text_color_hint">#AEAFB4</color>
+    <color name="text_color_track">#AEAFB4</color>
     <color name="edit_text_background">#E6E8EB</color>
 </resources>

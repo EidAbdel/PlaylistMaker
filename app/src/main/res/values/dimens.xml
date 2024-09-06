@@ -1,16 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="primary_text_size">24sp</dimen>
-    <dimen name="medium_padding">8dp</dimen>
     <dimen name="button_text_size">22sp</dimen>
     <dimen name="text_size_list">16sp</dimen>
-    <dimen name="zero_height">0dp</dimen>
-    <dimen name="margin">16dp</dimen>
-    <dimen name="radius">16dp</dimen>
-    <dimen name="padding">16dp</dimen>
-    <dimen name="half_margin">8dp</dimen>
-    <dimen name="ed_padding_start">12dp</dimen>
+    <dimen name="text_size">11sp</dimen>
+
+
     <dimen name="main_layout_padding_top">10dp</dimen>
-    <dimen name="im_padding_end">10dp</dimen>
+
     <dimen name="ed_height">36dp</dimen>
+    <dimen name="ed_padding_start">12dp</dimen>
+
+    <dimen name="im_padding_end">10dp</dimen>
+
+    <dimen name="vh_track_margin">14dp</dimen>
+    <dimen name="vh_track_margin_end">44dp</dimen>
+    <dimen name="vh_track_margin_end_half">12dp</dimen>
+    <dimen name="vh_track_art_size">45dp</dimen>
+    <dimen name="vh_track_layout_marginStart">13dp</dimen>
+
+    <dimen name="margin">16dp</dimen>
+    <dimen name="half_margin">8dp</dimen>
+
+    <dimen name="radius">16dp</dimen>
+
+    <dimen name="padding">16dp</dimen>
+    <dimen name="half_padding">8dp</dimen>
+
+
+    <dimen name="zero_height">0dp</dimen>
+
+
 </resources>

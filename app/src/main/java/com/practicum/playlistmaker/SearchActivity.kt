@@ -12,6 +12,9 @@ import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.practicum.playlistmaker.viewHolder.TrackAdapter
 
 class SearchActivity : AppCompatActivity() {
     private var textEditTextValue: String = INPUT_EDIT_TEXT_VALUE
@@ -70,6 +73,10 @@ class SearchActivity : AppCompatActivity() {
         }
 
         edSearch.addTextChangedListener(textWatcher)
+        val rvTrackList = findViewById<RecyclerView>(R.id.rv_track_list)
+        rvTrackList.layoutManager = LinearLayoutManager(this)
+        rvTrackList.adapter = TrackAdapter(Track.mockTrackLIST)
+
     }
 
 
