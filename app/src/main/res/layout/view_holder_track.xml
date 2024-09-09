@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +16,7 @@
             android:layout_gravity="start|center"
             android:scaleType="center"
             android:layout_marginStart="@dimen/vh_track_layout_marginStart"
-            android:src="@drawable/mock_beatles" />
+            tools:src="@drawable/mock_music" />
 
 
         <LinearLayout
@@ -33,7 +34,7 @@
                 style="@style/Track"
                 android:layout_marginTop="@dimen/vh_track_margin"
                 android:textColor="@color/black_white"
-                android:text="Eleanor Rigby"
+                tools:text="Eleanor Rigby"
                 android:textSize="@dimen/text_size_list" />
 
             <LinearLayout
@@ -44,7 +45,7 @@
                 <TextView
                     android:id="@+id/tx_artist_name"
                     style="@style/Track"
-                    android:text="The Beatles" />
+                    tools:text="The Beatles" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -55,7 +56,7 @@
                 <TextView
                     android:id="@+id/tx_track_time"
                     style="@style/Track"
-                    android:text="6:12" />
+                    tools:text="6:12" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

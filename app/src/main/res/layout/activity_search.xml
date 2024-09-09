@@ -2,10 +2,10 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
+    android:paddingTop="10dp"
     android:id="@+id/setting"
     style="@style/MainLayout"
-    android:paddingTop="@dimen/main_layout_padding_top">
+    >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_back_search"

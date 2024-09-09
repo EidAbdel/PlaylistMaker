@@ -11,7 +11,7 @@ import androidx.appcompat.widget.Toolbar
 class MainSetting : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
         setContentView(R.layout.activity_main_setting)
 
         val btBackMainMenu = findViewById<Toolbar>(R.id.tb_back_setting)
