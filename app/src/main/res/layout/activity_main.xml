@@ -2,10 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/blue"
-    android:orientation="vertical">
+    style="@style/MainMenuLayout"
+    >
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -18,14 +16,10 @@
         tools:ignore="RtlSymmetry">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
+            android:layout_gravity="start"
             android:text="@string/app_name"
-            android:textColor="@color/white"
-            android:textSize="@dimen/primary_text_size"
-
-            tools:ignore="RtlHardcoded" />
+            style="@style/HeaderFontStyleMainMenu"
+            />
 
     </FrameLayout>
 
@@ -37,64 +31,30 @@
         android:orientation="vertical"
         android:padding="16dp"
         android:paddingHorizontal="12dp"
-        android:paddingEnd="24dp"
         tools:ignore="RtlSymmetry">
 
 
         <Button
             android:id="@+id/bt_find"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/zero_height"
-            android:layout_marginBottom="@dimen/margin"
-            android:layout_weight="1"
-            android:backgroundTint="@color/white"
-            android:foreground="?attr/selectableItemBackground"
+            style="@style/ButtonStyleMain"
             android:text="@string/find"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textAllCaps="false"
-            android:textSize="@dimen/button_text_size"
-            app:cornerRadius="@dimen/radius"
-            app:icon="@drawable/find"
-            app:iconGravity="textStart"
-            app:iconTint="@color/black"
-            tools:ignore="NestedWeights" />
+            app:icon="@drawable/find" />
 
         <Button
             android:id="@+id/bt_media"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/zero_height"
-            android:layout_marginBottom="@dimen/margin"
-            android:layout_weight="1"
-            android:backgroundTint="@color/white"
-            android:foreground="?attr/selectableItemBackground"
+            style="@style/ButtonStyleMain"
             android:text="@string/media"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textAllCaps="false"
-            android:textSize="@dimen/button_text_size"
-            app:cornerRadius="@dimen/radius"
+
             app:icon="@drawable/media"
-            app:iconGravity="textStart"
-            app:iconTint="@color/black" />
+
+            />
 
         <Button
             android:id="@+id/bt_setting"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/zero_height"
-            android:layout_marginBottom="@dimen/margin"
-            android:layout_weight="1"
-            android:backgroundTint="@color/white"
-            android:foreground="?attr/selectableItemBackground"
+            style="@style/ButtonStyleMain"
             android:text="@string/setting"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textAllCaps="false"
-            android:textSize="@dimen/button_text_size"
-            app:cornerRadius="@dimen/radius"
-            app:icon="@drawable/setting"
-            app:iconGravity="textStart"
-            app:iconTint="@color/black" />
+
+            app:icon="@drawable/setting" />
 
     </LinearLayout>
 
