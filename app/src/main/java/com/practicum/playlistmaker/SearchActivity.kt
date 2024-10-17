@@ -56,7 +56,6 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
         setContentView(R.layout.activity_search)
 
 
@@ -87,6 +86,8 @@ class SearchActivity : AppCompatActivity() {
             edSearch.setText("")
             edSearch.clearFocus()
             hideSoftKeyboard(it)
+            tracks.clear()
+            tracksAdapter.notifyDataSetChanged()
         }
 
         edSearch.setOnEditorActionListener { _, actionId, _ ->
