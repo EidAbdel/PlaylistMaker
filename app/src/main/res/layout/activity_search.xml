@@ -2,17 +2,16 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingTop="10dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/setting"
     style="@style/MainLayout"
-    >
+    android:paddingTop="10dp">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_back_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.HeaderIcon"
-        >
+        android:theme="@style/Theme.HeaderIcon">
 
         <TextView
             style="@style/HeaderFontStyle"
@@ -24,13 +23,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingHorizontal="@dimen/padding"
-        android:paddingVertical="@dimen/half_padding"
-        >
+        android:paddingVertical="@dimen/half_padding">
+
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/ed_search"
             android:layout_width="match_parent"
             android:layout_height="@dimen/ed_height"
-            android:paddingVertical="@dimen/half_padding"
             android:background="@drawable/ed_background"
             android:drawableStart="@drawable/ed_find"
             android:drawablePadding="@dimen/half_padding"
@@ -38,31 +36,70 @@
             android:hint="@string/search"
             android:inputType="text"
             android:lines="1"
-            android:singleLine="true"
             android:maxLength="30"
+            android:paddingVertical="@dimen/half_padding"
+            android:paddingStart="@dimen/ed_padding_start"
 
+            android:singleLine="true"
+            android:imeOptions="actionDone"
             android:textColor="@color/black"
             android:textColorHint="@color/text_color_hint"
-            android:textFontWeight="400"
 
-            android:paddingStart="@dimen/ed_padding_start"
+            android:textFontWeight="400"
             android:textSize="@dimen/text_size_list"
 
+
+
             />
+
         <ImageView
-            android:paddingEnd="@dimen/im_padding_end"
             android:id="@+id/im_clear_search"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="end|center"
+            android:paddingEnd="@dimen/im_padding_end"
             android:src="@drawable/clear"
             android:visibility="gone" />
 
     </FrameLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_track_list"
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_track_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <ImageView
+            android:id="@+id/nothing_found"
+            style="@style/NothingFound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/something_went_wrong"
+            style="@style/SomethingWentWrong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/errorMessage"
+            style="@style/ErrorMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:text="ERROR" />
+
+        <Button
+            android:id="@+id/bt_refresh"
+            style="@style/RefreshErrorButton"
+            android:layout_width="wrap_content"
+            android:visibility="gone" />
+    </FrameLayout>
 
 </LinearLayout>

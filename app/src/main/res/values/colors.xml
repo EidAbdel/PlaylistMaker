@@ -16,4 +16,5 @@
     <color name="text_color_hint">#AEAFB4</color>
     <color name="text_color_track">#AEAFB4</color>
     <color name="edit_text_background">#E6E8EB</color>
+    <color name="dark_white">#1A1B22</color>
 </resources>

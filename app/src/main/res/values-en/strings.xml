@@ -11,4 +11,7 @@
     <string name="clear_search">Clear Search</string>
     <string name="email_title">Thanks to the developers for the cool application!</string>
     <string name="email_body">Message to developers of the Playlist Maker application</string>
+    <string name="nothing_found">Nothing found</string>
+    <string name="something_went_wrong">Network error\n\nThe download failed .\nCheck your internet connection.</string>
+    <string name="refresh">Refresh</string>
 </resources>
