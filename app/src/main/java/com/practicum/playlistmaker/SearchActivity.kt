@@ -71,6 +71,10 @@ class SearchActivity : AppCompatActivity() {
         errorWentWrong = findViewById(R.id.something_went_wrong)
         btRefresh = findViewById(R.id.bt_refresh)
 
+        val histText = findViewById<TextView>(R.id.tx_clear_history)
+        val histButton = findViewById<Button>(R.id.bt_clear_history)
+
+
         val recyclerView = findViewById<RecyclerView>(R.id.rv_track_list)
         recyclerView.adapter = tracksAdapter
 
@@ -88,6 +92,10 @@ class SearchActivity : AppCompatActivity() {
             hideSoftKeyboard(it)
             tracks.clear()
             tracksAdapter.notifyDataSetChanged()
+            errorText.visibility = View.GONE
+            errorNotFound.visibility = View.GONE
+            errorWentWrong.visibility = View.GONE
+            btRefresh.visibility = View.GONE
         }
 
         edSearch.setOnEditorActionListener { _, actionId, _ ->
@@ -119,6 +127,13 @@ class SearchActivity : AppCompatActivity() {
             ) {
                 // TODO: перехват самого события изменения текст не увидим но сможем посмотреть что изменилось
                 imClear.visibility = buttonVisibility(charSequence)
+                histText.visibility = if (
+                    edSearch.hasFocus() && charSequence?.isEmpty() == true
+                ) View.VISIBLE else View.GONE
+                histButton.visibility = if (
+                    edSearch.hasFocus() && charSequence?.isEmpty() == true
+                ) View.VISIBLE else View.GONE
+
             }
 
             override fun afterTextChanged(editable: Editable?) {

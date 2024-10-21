@@ -14,4 +14,6 @@
     <string name="nothing_found">Nothing found</string>
     <string name="something_went_wrong">Network error\n\nThe download failed .\nCheck your internet connection.</string>
     <string name="refresh">Refresh</string>
+    <string name="clear_hist">Clear histiry</string>
+    <string name="you_search">Your Search</string>
 </resources>
