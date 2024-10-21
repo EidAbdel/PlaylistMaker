@@ -7,4 +7,6 @@
     <color name="edit_text_background">#FFFFFF</color>
     <color name="text_color_track">#FFFFFF</color>
     <color name="black_white">#FFFFFF</color>
+    <color name="dark_white">#FFFFFF</color>
+    <color name="white_dark">#1A1B22</color>
 </resources>

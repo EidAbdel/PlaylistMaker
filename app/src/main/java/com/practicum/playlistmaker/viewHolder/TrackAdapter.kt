@@ -20,6 +20,6 @@ class TrackAdapter(
     }
 
     override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
-        holder.bind(Track.mockTrackLIST[position])
+        holder.bind(tracks[position])
     }
 }
