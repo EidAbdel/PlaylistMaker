@@ -8,6 +8,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.switchmaterial.SwitchMaterial
+import com.google.gson.Gson
 
 class MainSetting : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +32,6 @@ class MainSetting : AppCompatActivity() {
         btBackMainMenu.setOnClickListener {
             finish()
         }
-
         btShare.setOnClickListener {
             val shareIntent = Intent(Intent.ACTION_SEND)
             shareIntent.setType("text/plain")

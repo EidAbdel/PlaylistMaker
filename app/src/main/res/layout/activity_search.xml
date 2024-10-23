@@ -75,56 +75,60 @@
         android:paddingBottom="20dp"
         android:paddingTop="18dp"
         />
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_track_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-        <ImageView
-            android:id="@+id/nothing_found"
-            style="@style/NothingFound"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/something_went_wrong"
-            style="@style/SomethingWentWrong"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/errorMessage"
-            style="@style/ErrorMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            tools:text="ERROR" />
-
         <Button
-            android:id="@+id/bt_refresh"
-            style="@style/RefreshErrorButton"
+            android:id="@+id/bt_clear_history"
             android:layout_width="wrap_content"
-            android:visibility="gone" />
-    </FrameLayout>
-    <Button
-        android:id="@+id/bt_clear_history"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:visibility="visible"
+            android:text="@string/clear_hist"
+            android:textSize="14sp"
+            android:textColor="@color/white_dark"
+            android:backgroundTint="@color/dark_white"
+            android:layout_marginTop="24dp"
+            android:padding="6dp"
+            android:fontFamily = "@font/ys_display_medium"
+            app:cornerRadius="54dp"
+            />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/nothing_found"
+        style="@style/NothingFound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:visibility="visible"
-        android:text="@string/clear_hist"
-        android:textSize="14sp"
-        android:textColor="@color/white_dark"
-        android:backgroundTint="@color/dark_white"
-        android:layout_marginTop="24dp"
-        android:padding="6dp"
-        app:cornerRadius="54dp"
-        />
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/something_went_wrong"
+        style="@style/SomethingWentWrong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/errorMessage"
+        style="@style/ErrorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:text="ERROR" />
+
+    <Button
+        android:id="@+id/bt_refresh"
+        style="@style/RefreshErrorButton"
+        android:layout_width="wrap_content"
+        android:visibility="gone" />
 </LinearLayout>
