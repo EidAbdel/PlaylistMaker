@@ -82,13 +82,10 @@ class SearchActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.rv_track_list)
 
         histTrack()
-        if (isVisible()) {
-            txHist.visibility = View.VISIBLE
-            btHistclear.visibility = View.VISIBLE
-        } else {
-            txHist.visibility = View.GONE
-            btHistclear.visibility = View.GONE
-        }
+
+        txHist.visibility = isVisible()
+        btHistclear.visibility = isVisible()
+
         recyclerView.adapter = tracksAdapter
 
 
@@ -98,13 +95,8 @@ class SearchActivity : AppCompatActivity() {
                 .commit()
             tracks.clear()
             tracksAdapter.notifyDataSetChanged()
-            if (isVisible()) {
-                txHist.visibility = View.VISIBLE
-                btHistclear.visibility = View.VISIBLE
-            } else {
-                txHist.visibility = View.GONE
-                btHistclear.visibility = View.GONE
-            }
+            txHist.visibility = isVisible()
+            btHistclear.visibility = isVisible()
         }
 
         btBackMainMenu.setOnClickListener {
@@ -194,10 +186,14 @@ class SearchActivity : AppCompatActivity() {
 
     }
 
-    private fun isVisible(): Boolean {
+    private fun isVisible(): Int {
         val sharedPrefs = getSharedPreferences(HISTORY_PREFERENCES, MODE_PRIVATE)
         val tracksHist = HistoryTrackPreferences().readAll(sharedPrefs)
-        return tracksHist.size != 0
+        if (tracksHist.size != 0) {
+            return View.VISIBLE
+        } else (
+                return View.GONE
+                )
     }
 
     private fun searchTrack(request: String) {
