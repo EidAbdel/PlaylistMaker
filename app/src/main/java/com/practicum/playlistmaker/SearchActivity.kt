@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.RecyclerView
 import com.practicum.playlistmaker.api.ITunesApi
 import com.practicum.playlistmaker.api.ITunesResponse
+import com.practicum.playlistmaker.preferences.HistoryTrackPreferences
 import com.practicum.playlistmaker.viewHolder.TrackAdapter
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,12 +24,16 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+const val HISTORY_PREFERENCES = "history_log"
+
+
 class SearchActivity : AppCompatActivity() {
     private var textEditTextValue: String = INPUT_EDIT_TEXT_VALUE
 
     private var clientRequest: String = ""
     private var tracks = mutableListOf<Track>()
     private val tracksAdapter = TrackAdapter(tracks)
+
     private val iTunesBaseUrl = "https://itunes.apple.com"
     private val retrofit = Retrofit.Builder()
         .baseUrl(iTunesBaseUrl)
@@ -65,14 +70,34 @@ class SearchActivity : AppCompatActivity() {
 
         edSearch.setText(textEditTextValue)
 
-
         errorText = findViewById(R.id.errorMessage)
         errorNotFound = findViewById(R.id.nothing_found)
         errorWentWrong = findViewById(R.id.something_went_wrong)
         btRefresh = findViewById(R.id.bt_refresh)
 
+        val txHist = findViewById<TextView>(R.id.tx_clear_history)
+        val btHistclear = findViewById<Button>(R.id.bt_clear_history)
+
+
         val recyclerView = findViewById<RecyclerView>(R.id.rv_track_list)
+
+        histTrack()
+
+        txHist.visibility = isVisible()
+        btHistclear.visibility = isVisible()
+
         recyclerView.adapter = tracksAdapter
+
+
+        btHistclear.setOnClickListener {
+            getSharedPreferences(HISTORY_PREFERENCES, MODE_PRIVATE).edit()
+                .clear()
+                .commit()
+            tracks.clear()
+            tracksAdapter.notifyDataSetChanged()
+            txHist.visibility = isVisible()
+            btHistclear.visibility = isVisible()
+        }
 
         btBackMainMenu.setOnClickListener {
             finish()
@@ -88,6 +113,11 @@ class SearchActivity : AppCompatActivity() {
             hideSoftKeyboard(it)
             tracks.clear()
             tracksAdapter.notifyDataSetChanged()
+            histTrack()
+            errorText.visibility = View.GONE
+            errorNotFound.visibility = View.GONE
+            errorWentWrong.visibility = View.GONE
+            btRefresh.visibility = View.GONE
         }
 
         edSearch.setOnEditorActionListener { _, actionId, _ ->
@@ -119,11 +149,24 @@ class SearchActivity : AppCompatActivity() {
             ) {
                 // TODO: перехват самого события изменения текст не увидим но сможем посмотреть что изменилось
                 imClear.visibility = buttonVisibility(charSequence)
+                if (edSearch.hasFocus() && charSequence?.isEmpty() == true) {
+                    txHist.visibility = View.VISIBLE
+                    btHistclear.visibility = View.VISIBLE
+                } else {
+                    txHist.visibility = View.GONE
+                    btHistclear.visibility = View.GONE
+                    tracks.clear()
+                    tracksAdapter.notifyDataSetChanged()
+
+                }
+
+
             }
 
             override fun afterTextChanged(editable: Editable?) {
                 // TODO: Перехват текста сразу после изменения, изменения не увидим, но получим изменённый текст
                 textEditTextValue = editable.toString()
+                recyclerView.adapter = tracksAdapter
             }
 
 
@@ -132,6 +175,25 @@ class SearchActivity : AppCompatActivity() {
         edSearch.addTextChangedListener(textWatcher)
 
 
+    }
+
+    private fun histTrack() {
+        val sharedPrefs = getSharedPreferences(HISTORY_PREFERENCES, MODE_PRIVATE)
+        val tracksHist = HistoryTrackPreferences().readAll(sharedPrefs)
+        tracks.clear()
+        tracks.addAll(tracksHist)
+        tracksAdapter.notifyDataSetChanged()
+
+    }
+
+    private fun isVisible(): Int {
+        val sharedPrefs = getSharedPreferences(HISTORY_PREFERENCES, MODE_PRIVATE)
+        val tracksHist = HistoryTrackPreferences().readAll(sharedPrefs)
+        if (tracksHist.size != 0) {
+            return View.VISIBLE
+        } else (
+                return View.GONE
+                )
     }
 
     private fun searchTrack(request: String) {
