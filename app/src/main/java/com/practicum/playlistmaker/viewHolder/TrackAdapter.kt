@@ -10,7 +10,7 @@ import com.practicum.playlistmaker.HISTORY_PREFERENCES
 import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.Track
 import com.practicum.playlistmaker.preferences.HistoryTrackPreferences
-
+import com.google.gson.Gson
 
 class TrackAdapter(
     private val tracks: List<Track>
@@ -37,6 +37,7 @@ class TrackAdapter(
                 ), this.tracks[position]
             )
             val intent = Intent(view.context, AudioPlayerActivity::class.java)
+            intent.putExtra("track", Gson().toJson(tracks[position]))
             view.context.startActivity(intent)
 
         }

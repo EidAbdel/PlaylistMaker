@@ -8,7 +8,7 @@
     tools:context=".AudioPlayerActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tb_back_search"
+        android:id="@+id/tb_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/Theme.HeaderIcon"
@@ -38,7 +38,7 @@
         android:layout_height="312dp"
         android:scaleType="centerCrop"
         tools:src="@drawable/placeholder_player"
-        app:layout_constraintTop_toBottomOf="@id/tb_back_search"
+        app:layout_constraintTop_toBottomOf="@id/tb_back"
         android:layout_marginTop="26dp"
         app:layout_constraintStart_toStartOf="@id/left_guideline"
         app:layout_constraintEnd_toEndOf="@id/right_guideline"
@@ -56,7 +56,7 @@
         tools:text="Eleanor Rigby"
          />
     <TextView
-        android:id="@+id/tx_track_group"
+        android:id="@+id/tx_artist_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tx_track_name"
@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/play_list_ass"
 
-        app:layout_constraintTop_toBottomOf="@id/tx_track_group"
+        app:layout_constraintTop_toBottomOf="@id/tx_artist_name"
         android:layout_marginTop="54dp"
         app:layout_constraintStart_toStartOf="@id/left_guideline"
 
@@ -86,7 +86,7 @@
         android:background="@drawable/button_play"
         app:layout_constraintStart_toEndOf="@id/playListButton"
         app:layout_constraintEnd_toStartOf="@id/likeButton"
-        app:layout_constraintTop_toBottomOf="@id/tx_track_group"
+        app:layout_constraintTop_toBottomOf="@id/tx_artist_name"
 
 
         />
@@ -96,7 +96,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_like"
-        app:layout_constraintTop_toBottomOf="@id/tx_track_group"
+        app:layout_constraintTop_toBottomOf="@id/tx_artist_name"
         android:layout_marginTop="54dp"
         app:layout_constraintEnd_toEndOf="@id/right_guideline"
         />
