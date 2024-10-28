@@ -1,19 +1,23 @@
 package com.practicum.playlistmaker
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.google.gson.Gson
+import com.practicum.playlistmaker.utils.TRACK
+import com.practicum.playlistmaker.utils.Constants
 
 class AudioPlayerActivity : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +29,7 @@ class AudioPlayerActivity : AppCompatActivity() {
             insets
         }
 
-        val track = Gson().fromJson(intent.getStringExtra("track"), Track::class.java)
+        val track = intent.getParcelableExtra(TRACK,Track::class.java)
 
         val btBack = findViewById<Toolbar>(R.id.tb_back)
         val imArtworkUrl512 = findViewById<ImageView>(R.id.im_artwork)
@@ -38,19 +42,19 @@ class AudioPlayerActivity : AppCompatActivity() {
         val txCountry = findViewById<TextView>(R.id.tx_country_name)
 
         Glide.with(this)
-            .load(track.getCoverArtwork())
+            .load(track?.getCoverArtwork())
             .placeholder(R.drawable.placeholder_player)
             .centerCrop()
-            .transform(RoundedCorners(8))
+            .transform(RoundedCorners(Constants.dpToPx(8f, this)))
             .into(imArtworkUrl512)
 
-        txTrackName.text = track.trackName
-        txArtistName.text = track.artistName
-        txTrackTimeMillis.text = track.getDuration()
-        txCollectionName.text = track.collectionName
-        txReleaseDate.text = track.getYear()
-        txPrimaryGenreName.text = track.primaryGenreName
-        txCountry.text = track.country
+        txTrackName.text = track?.trackName
+        txArtistName.text = track?.artistName
+        txTrackTimeMillis.text = track?.getDuration()
+        txCollectionName.text = track?.collectionName
+        txReleaseDate.text = track?.getYear()
+        txPrimaryGenreName.text = track?.primaryGenreName
+        txCountry.text = track?.country
 
         btBack.setOnClickListener {
             finish()

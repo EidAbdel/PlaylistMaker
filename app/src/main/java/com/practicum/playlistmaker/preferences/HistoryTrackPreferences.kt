@@ -4,8 +4,8 @@ package com.practicum.playlistmaker.preferences
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.practicum.playlistmaker.Track
+import com.practicum.playlistmaker.utils.HISTORY_LEN
 
-const val HISTORY_LEN = 10
 
 class HistoryTrackPreferences {
 
