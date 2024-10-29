@@ -255,6 +255,7 @@
         app:layout_constraintStart_toEndOf="@id/left_third_guideline"
         app:layout_constraintEnd_toEndOf="@id/right_guideline"
         app:layout_constraintBaseline_toBaselineOf="@id/tx_country"
+        android:layout_marginBottom="16dp"
         tools:text="Великобритания"
 
 
