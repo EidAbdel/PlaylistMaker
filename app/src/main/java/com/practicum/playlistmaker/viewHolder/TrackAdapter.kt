@@ -1,14 +1,16 @@
 package com.practicum.playlistmaker.viewHolder
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import androidx.recyclerview.widget.RecyclerView
-import com.practicum.playlistmaker.HISTORY_PREFERENCES
+import com.practicum.playlistmaker.AudioPlayerActivity
 import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.Track
 import com.practicum.playlistmaker.preferences.HistoryTrackPreferences
-
+import com.practicum.playlistmaker.utils.HISTORY_PREFERENCES
+import com.practicum.playlistmaker.utils.TRACK
 
 class TrackAdapter(
     private val tracks: List<Track>
@@ -34,6 +36,9 @@ class TrackAdapter(
                     MODE_PRIVATE
                 ), this.tracks[position]
             )
+            val intent = Intent(view.context, AudioPlayerActivity::class.java)
+            intent.putExtra(TRACK, tracks[position])
+            view.context.startActivity(intent)
 
         }
     }

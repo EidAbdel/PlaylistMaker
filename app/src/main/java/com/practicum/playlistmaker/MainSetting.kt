@@ -2,14 +2,12 @@ package com.practicum.playlistmaker
 
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.switchmaterial.SwitchMaterial
-import com.google.gson.Gson
 
 class MainSetting : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences

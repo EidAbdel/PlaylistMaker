@@ -10,4 +10,6 @@
     <style name="Theme.HeaderIcon" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="navigationIcon">@drawable/back</item>
     </style>
+
+
 </resources>

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.practicum.playlistmaker.api.ITunesApi
 import com.practicum.playlistmaker.api.ITunesResponse
 import com.practicum.playlistmaker.preferences.HistoryTrackPreferences
+import com.practicum.playlistmaker.utils.HISTORY_PREFERENCES
 import com.practicum.playlistmaker.viewHolder.TrackAdapter
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,7 +25,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-const val HISTORY_PREFERENCES = "history_log"
+
 
 
 class SearchActivity : AppCompatActivity() {
