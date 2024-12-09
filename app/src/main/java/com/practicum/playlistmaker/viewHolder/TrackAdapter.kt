@@ -1,6 +1,8 @@
 package com.practicum.playlistmaker.viewHolder
 
 import android.content.Intent
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
@@ -21,6 +23,10 @@ class TrackAdapter(
         return TrackViewHolder(view)
     }
 
+
+    private val handler = Handler(Looper.getMainLooper())
+    private var isClickAllowed = true
+
     override fun getItemCount(): Int {
         return tracks.size
     }
@@ -29,17 +35,30 @@ class TrackAdapter(
 
         holder.bind(tracks[position])
         holder.itemView.setOnClickListener { view ->
-
-            HistoryTrackPreferences().write(
-                view.context.getSharedPreferences(
-                    HISTORY_PREFERENCES,
-                    MODE_PRIVATE
-                ), this.tracks[position]
-            )
-            val intent = Intent(view.context, AudioPlayerActivity::class.java)
-            intent.putExtra(TRACK, tracks[position])
-            view.context.startActivity(intent)
-
+            if (clickDebounce()) {
+                HistoryTrackPreferences().write(
+                    view.context.getSharedPreferences(
+                        HISTORY_PREFERENCES,
+                        MODE_PRIVATE
+                    ), this.tracks[position]
+                )
+                val intent = Intent(view.context, AudioPlayerActivity::class.java)
+                intent.putExtra(TRACK, tracks[position])
+                view.context.startActivity(intent)
+            }
         }
+    }
+
+    private fun clickDebounce(): Boolean {
+        val current = isClickAllowed
+        if (isClickAllowed) {
+            isClickAllowed = false
+            handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
+        }
+        return current
+    }
+
+    companion object {
+        private const val CLICK_DEBOUNCE_DELAY = 1000L
     }
 }

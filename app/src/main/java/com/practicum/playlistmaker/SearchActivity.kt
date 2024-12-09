@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.os.Handler
+import android.os.Looper
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -24,8 +27,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
-
 
 
 class SearchActivity : AppCompatActivity() {
@@ -46,6 +47,14 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var errorNotFound: ImageView
     private lateinit var errorWentWrong: ImageView
     private lateinit var btRefresh: Button
+
+    private lateinit var progressBar: ProgressBar
+
+    private val handler = Handler(Looper.getMainLooper())
+
+    private val searchRunnable = Runnable { searchTrack() }
+
+
 
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -84,6 +93,8 @@ class SearchActivity : AppCompatActivity() {
 
         histTrack()
 
+        progressBar = findViewById(R.id.progressBar)
+
         txHist.visibility = isVisible()
         btHistclear.visibility = isVisible()
 
@@ -104,7 +115,7 @@ class SearchActivity : AppCompatActivity() {
             finish()
         }
         btRefresh.setOnClickListener {
-            searchTrack(clientRequest)
+            searchTrack()
 
         }
 
@@ -121,16 +132,6 @@ class SearchActivity : AppCompatActivity() {
             btRefresh.visibility = View.GONE
         }
 
-        edSearch.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                if (edSearch.text.isNotEmpty()) {
-                    clientRequest = edSearch.text.toString()
-                    searchTrack(clientRequest)
-                }
-                true
-            }
-            false
-        }
 
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(
@@ -149,6 +150,7 @@ class SearchActivity : AppCompatActivity() {
                 count: Int
             ) {
                 // TODO: перехват самого события изменения текст не увидим но сможем посмотреть что изменилось
+                clientRequest = charSequence.toString()
                 imClear.visibility = buttonVisibility(charSequence)
                 if (edSearch.hasFocus() && charSequence?.isEmpty() == true) {
                     txHist.visibility = View.VISIBLE
@@ -158,6 +160,12 @@ class SearchActivity : AppCompatActivity() {
                     btHistclear.visibility = View.GONE
                     tracks.clear()
                     tracksAdapter.notifyDataSetChanged()
+                    progressBar.visibility = View.VISIBLE
+                    errorText.visibility = View.GONE
+                    errorNotFound.visibility = View.GONE
+                    errorWentWrong.visibility = View.GONE
+                    btRefresh.visibility = View.GONE
+                    searchDebounce()
 
                 }
 
@@ -197,74 +205,88 @@ class SearchActivity : AppCompatActivity() {
                 )
     }
 
-    private fun searchTrack(request: String) {
-        iTunesApi.findSong(request).enqueue(object : Callback<ITunesResponse> {
-            override fun onResponse(
-                call: Call<ITunesResponse>,
-                response: Response<ITunesResponse>
-            ) {
-                if (response.isSuccessful) {
-                    tracks.clear()
-                    if (response.body()?.results?.isNotEmpty() == true) {
-                        tracks.addAll(response.body()?.results!!)
-                        tracksAdapter.notifyDataSetChanged()
-                    }
-                    if (tracks.isEmpty()) {
-                        showErrorMessage(getString(R.string.nothing_found), 1)
+    private fun searchTrack() {
+        if (clientRequest.isNotEmpty()) {
+            iTunesApi.findSong(clientRequest).enqueue(object : Callback<ITunesResponse> {
+                override fun onResponse(
+                    call: Call<ITunesResponse>,
+                    response: Response<ITunesResponse>
+                ) {
+                    progressBar.visibility = View.GONE
+                    if (response.isSuccessful) {
+                        tracks.clear()
+                        if (response.body()?.results?.isNotEmpty() == true) {
+                            tracks.addAll(response.body()?.results!!)
+                            tracksAdapter.notifyDataSetChanged()
+                        }
+                        if (tracks.isEmpty()) {
+                            showErrorMessage(getString(R.string.nothing_found), 1)
+                        } else {
+                            showErrorMessage("", 2)
+                        }
                     } else {
-                        showErrorMessage("", 2)
+                        showErrorMessage(getString(R.string.something_went_wrong), 2)
                     }
-                } else {
+                }
+
+                override fun onFailure(call: Call<ITunesResponse>, t: Throwable) {
                     showErrorMessage(getString(R.string.something_went_wrong), 2)
                 }
-            }
+            })
 
-            override fun onFailure(call: Call<ITunesResponse>, t: Throwable) {
-                showErrorMessage(getString(R.string.something_went_wrong), 2)
-            }
-        })
-    }
-
-
-    private fun showErrorMessage(text: String, type: Int) {
-        if (text.isNotEmpty()) {
-            errorText.visibility = View.VISIBLE
-            errorNotFound.visibility = View.GONE
-            errorWentWrong.visibility = View.GONE
-            btRefresh.visibility = View.GONE
-            tracks.clear()
-            tracksAdapter.notifyDataSetChanged()
-            errorText.text = text
-            if (type == 1) errorNotFound.visibility = View.VISIBLE
-            else {
-                errorWentWrong.visibility = View.VISIBLE
-                btRefresh.visibility = View.VISIBLE
-            }
         } else {
-            errorText.visibility = View.GONE
-            errorNotFound.visibility = View.GONE
-            errorWentWrong.visibility = View.GONE
-            btRefresh.visibility = View.GONE
+            progressBar.visibility = View.GONE
         }
     }
 
-
-    private fun buttonVisibility(charSequence: CharSequence?): Int {
-        return if (charSequence.isNullOrEmpty()) {
-            View.GONE
-        } else {
-            View.VISIBLE
+        private fun showErrorMessage(text: String, type: Int) {
+            if (text.isNotEmpty()) {
+                errorText.visibility = View.VISIBLE
+                errorNotFound.visibility = View.GONE
+                errorWentWrong.visibility = View.GONE
+                btRefresh.visibility = View.GONE
+                tracks.clear()
+                tracksAdapter.notifyDataSetChanged()
+                errorText.text = text
+                if (type == 1) errorNotFound.visibility = View.VISIBLE
+                else {
+                    errorWentWrong.visibility = View.VISIBLE
+                    btRefresh.visibility = View.VISIBLE
+                }
+            } else {
+                errorText.visibility = View.GONE
+                errorNotFound.visibility = View.GONE
+                errorWentWrong.visibility = View.GONE
+                btRefresh.visibility = View.GONE
+            }
         }
-    }
 
-    private fun hideSoftKeyboard(view: View) {
-        val softKeyboard = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        softKeyboard.hideSoftInputFromWindow(view.windowToken, 0)
-    }
 
-    companion object {
-        const val EDIT_TEXT_VALUE = "EDIT_TEXT_VALUE"
-        const val INPUT_EDIT_TEXT_VALUE = ""
-    }
+        private fun buttonVisibility(charSequence: CharSequence?): Int {
+            return if (charSequence.isNullOrEmpty()) {
+                View.GONE
+            } else {
+                View.VISIBLE
+            }
+        }
 
-}
+        private fun hideSoftKeyboard(view: View) {
+            val softKeyboard = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            softKeyboard.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+
+
+        private fun searchDebounce() {
+            handler.removeCallbacks(searchRunnable)
+            handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
+        }
+
+
+
+        companion object {
+            private const val SEARCH_DEBOUNCE_DELAY = 2000L
+            const val EDIT_TEXT_VALUE = "EDIT_TEXT_VALUE"
+            const val INPUT_EDIT_TEXT_VALUE = ""
+        }
+
+    }
