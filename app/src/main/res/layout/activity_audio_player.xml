@@ -124,7 +124,7 @@
         app:layout_constraintStart_toStartOf="@id/playButton"
         app:layout_constraintEnd_toEndOf="@id/playButton"
         android:textColor="@color/black_white"
-        android:text="0:30"
+        android:text="0:00"
         android:textAlignment="center"
         />
 
