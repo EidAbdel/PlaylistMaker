@@ -248,16 +248,21 @@ class SearchActivity : AppCompatActivity() {
                 tracks.clear()
                 tracksAdapter.notifyDataSetChanged()
                 errorText.text = text
-                if (type == 1) errorNotFound.visibility = View.VISIBLE
+                if (type == 1) {
+                    errorNotFound.visibility = View.VISIBLE
+                    errorText.visibility = View.VISIBLE
+                    }
                 else {
                     errorWentWrong.visibility = View.VISIBLE
                     btRefresh.visibility = View.VISIBLE
+                    progressBar.visibility = View.GONE
                 }
             } else {
                 errorText.visibility = View.GONE
                 errorNotFound.visibility = View.GONE
                 errorWentWrong.visibility = View.GONE
                 btRefresh.visibility = View.GONE
+
             }
         }
 
