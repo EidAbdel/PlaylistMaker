@@ -7,7 +7,6 @@ import android.text.TextWatcher
 import android.view.View
 import android.os.Handler
 import android.os.Looper
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
@@ -186,6 +185,12 @@ class SearchActivity : AppCompatActivity() {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        searchDebounce()
+        
+    }
+
     private fun histTrack() {
         val sharedPrefs = getSharedPreferences(HISTORY_PREFERENCES, MODE_PRIVATE)
         val tracksHist = HistoryTrackPreferences().readAll(sharedPrefs)
@@ -220,17 +225,17 @@ class SearchActivity : AppCompatActivity() {
                             tracksAdapter.notifyDataSetChanged()
                         }
                         if (tracks.isEmpty()) {
-                            showErrorMessage(getString(R.string.nothing_found), 1)
+                            showErrorMessage(getString(R.string.nothing_found), ERROR_NOT_FOUND)
                         } else {
                             showErrorMessage("", 2)
                         }
                     } else {
-                        showErrorMessage(getString(R.string.something_went_wrong), 2)
+                        showErrorMessage(getString(R.string.something_went_wrong), ERROR_NETWORK_CONECTION)
                     }
                 }
 
                 override fun onFailure(call: Call<ITunesResponse>, t: Throwable) {
-                    showErrorMessage(getString(R.string.something_went_wrong), 2)
+                    showErrorMessage(getString(R.string.something_went_wrong), ERROR_NETWORK_CONECTION)
                 }
             })
 
@@ -290,6 +295,8 @@ class SearchActivity : AppCompatActivity() {
 
         companion object {
             private const val SEARCH_DEBOUNCE_DELAY = 2000L
+            private const val ERROR_NOT_FOUND = 1
+            private const val ERROR_NETWORK_CONECTION = 2
             const val EDIT_TEXT_VALUE = "EDIT_TEXT_VALUE"
             const val INPUT_EDIT_TEXT_VALUE = ""
         }

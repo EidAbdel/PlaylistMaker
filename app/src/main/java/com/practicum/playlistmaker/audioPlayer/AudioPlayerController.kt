@@ -1,9 +1,14 @@
 package com.practicum.playlistmaker.audioPlayer
 
+import android.app.Application
+import android.content.Context
+import android.content.res.Resources
 import android.media.MediaPlayer
 import android.os.Handler
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.core.content.ContextCompat.getString
+import com.bumptech.glide.load.engine.Resource
 import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.Track
 import java.text.SimpleDateFormat
@@ -23,6 +28,8 @@ class AudioPlayerController(
         mediaPlayer.release()
     }
 
+    private val dateFormat by lazy { SimpleDateFormat("mm:ss", Locale.getDefault()) }
+
     fun preparePlayer() {
         mediaPlayer.setDataSource(url)
         mediaPlayer.prepareAsync()
@@ -34,7 +41,8 @@ class AudioPlayerController(
         mediaPlayer.setOnCompletionListener {
             playerState = STATE_PREPARED
             imPlay.setBackgroundResource(R.drawable.button_play)
-            txtDuration.text = "00:00"
+            txtDuration.text = timeFromMills(0)
+
         }
     }
 
@@ -68,7 +76,7 @@ class AudioPlayerController(
     }
 
     private fun getTrackTimeLeft(){
-        txtDuration.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(mediaPlayer.currentPosition)
+        txtDuration.text = timeFromMills(mediaPlayer.currentPosition)
     }
 
     private fun refreshTrackTimer(): Runnable {
@@ -90,6 +98,9 @@ class AudioPlayerController(
         runnable.let { handler.removeCallbacks(it) }
     }
 
+    private fun timeFromMills(mills: Int) : String {
+       return dateFormat.format(mills)
+    }
 
 
 
