@@ -46,8 +46,11 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var errorNotFound: ImageView
     private lateinit var errorWentWrong: ImageView
     private lateinit var btRefresh: Button
+    private lateinit var txHist: TextView
+    private lateinit var btHistclear: Button
 
     private lateinit var progressBar: ProgressBar
+    private lateinit var recyclerView: RecyclerView
 
     private val handler = Handler(Looper.getMainLooper())
 
@@ -84,11 +87,12 @@ class SearchActivity : AppCompatActivity() {
         errorWentWrong = findViewById(R.id.something_went_wrong)
         btRefresh = findViewById(R.id.bt_refresh)
 
-        val txHist = findViewById<TextView>(R.id.tx_clear_history)
-        val btHistclear = findViewById<Button>(R.id.bt_clear_history)
+
+        txHist = findViewById(R.id.tx_clear_history)
+        btHistclear = findViewById(R.id.bt_clear_history)
 
 
-        val recyclerView = findViewById<RecyclerView>(R.id.rv_track_list)
+       recyclerView = findViewById(R.id.rv_track_list)
 
         histTrack()
 
@@ -188,15 +192,22 @@ class SearchActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         searchDebounce()
-        
+
     }
 
     private fun histTrack() {
         val sharedPrefs = getSharedPreferences(HISTORY_PREFERENCES, MODE_PRIVATE)
         val tracksHist = HistoryTrackPreferences().readAll(sharedPrefs)
-        tracks.clear()
-        tracks.addAll(tracksHist)
-        tracksAdapter.notifyDataSetChanged()
+        if (tracksHist.isEmpty()) {
+              txHist.visibility = View.GONE
+              btHistclear.visibility = View.GONE
+        }else{
+            txHist.visibility = View.VISIBLE
+            btHistclear.visibility = View.VISIBLE
+            tracks.clear()
+            tracks.addAll(tracksHist)
+            tracksAdapter.notifyDataSetChanged()
+        }
 
     }
 
