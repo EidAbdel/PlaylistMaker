@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
@@ -29,6 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class SearchActivity : AppCompatActivity() {
+
     private var textEditTextValue: String = INPUT_EDIT_TEXT_VALUE
 
     private var clientRequest: String = ""
@@ -42,15 +44,16 @@ class SearchActivity : AppCompatActivity() {
         .build()
     private val iTunesApi = retrofit.create(ITunesApi::class.java)
 
-    private lateinit var errorText: TextView
-    private lateinit var errorNotFound: ImageView
-    private lateinit var errorWentWrong: ImageView
-    private lateinit var btRefresh: Button
+    private lateinit var txError: TextView
+    private lateinit var imError: ImageView
+    private lateinit var btErrorRefresh: Button
+
     private lateinit var txHist: TextView
     private lateinit var btHistclear: Button
 
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
+    private lateinit var edSearch: EditText
 
     private val handler = Handler(Looper.getMainLooper())
 
@@ -71,6 +74,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
@@ -78,14 +82,13 @@ class SearchActivity : AppCompatActivity() {
 
         val btBackMainMenu = findViewById<Toolbar>(R.id.tb_back_search)
         val imClear = findViewById<ImageView>(R.id.im_clear_search)
-        val edSearch = findViewById<EditText>(R.id.ed_search)
+        edSearch = findViewById(R.id.ed_search)
 
         edSearch.setText(textEditTextValue)
 
-        errorText = findViewById(R.id.errorMessage)
-        errorNotFound = findViewById(R.id.nothing_found)
-        errorWentWrong = findViewById(R.id.something_went_wrong)
-        btRefresh = findViewById(R.id.bt_refresh)
+        txError = findViewById(R.id.error_message)
+        imError = findViewById(R.id.error_image)
+        btErrorRefresh = findViewById(R.id.bt_refresh)
 
 
         txHist = findViewById(R.id.tx_clear_history)
@@ -93,16 +96,10 @@ class SearchActivity : AppCompatActivity() {
 
 
        recyclerView = findViewById(R.id.rv_track_list)
-
-        histTrack()
-
         progressBar = findViewById(R.id.progressBar)
-
-        txHist.visibility = isVisible()
-        btHistclear.visibility = isVisible()
-
         recyclerView.adapter = tracksAdapter
 
+        histTrack()
 
         btHistclear.setOnClickListener {
             getSharedPreferences(HISTORY_PREFERENCES, MODE_PRIVATE).edit()
@@ -110,15 +107,15 @@ class SearchActivity : AppCompatActivity() {
                 .commit()
             tracks.clear()
             tracksAdapter.notifyDataSetChanged()
-            txHist.visibility = isVisible()
-            btHistclear.visibility = isVisible()
+            viewState(HIST_STATE)
         }
 
         btBackMainMenu.setOnClickListener {
             finish()
         }
-        btRefresh.setOnClickListener {
-            searchTrack()
+
+        btErrorRefresh.setOnClickListener {
+            searchDebounce()
 
         }
 
@@ -129,10 +126,7 @@ class SearchActivity : AppCompatActivity() {
             tracks.clear()
             tracksAdapter.notifyDataSetChanged()
             histTrack()
-            errorText.visibility = View.GONE
-            errorNotFound.visibility = View.GONE
-            errorWentWrong.visibility = View.GONE
-            btRefresh.visibility = View.GONE
+
         }
 
 
@@ -155,23 +149,16 @@ class SearchActivity : AppCompatActivity() {
                 // TODO: перехват самого события изменения текст не увидим но сможем посмотреть что изменилось
                 clientRequest = charSequence.toString()
                 imClear.visibility = buttonVisibility(charSequence)
+
+
                 if (edSearch.hasFocus() && charSequence?.isEmpty() == true) {
-                    txHist.visibility = View.VISIBLE
-                    btHistclear.visibility = View.VISIBLE
+
+                    histTrack()
+
                 } else {
-                    txHist.visibility = View.GONE
-                    btHistclear.visibility = View.GONE
-                    tracks.clear()
-                    tracksAdapter.notifyDataSetChanged()
-                    progressBar.visibility = View.VISIBLE
-                    errorText.visibility = View.GONE
-                    errorNotFound.visibility = View.GONE
-                    errorWentWrong.visibility = View.GONE
-                    btRefresh.visibility = View.GONE
+                    viewState(SEARCH_WAIT)
                     searchDebounce()
-
                 }
-
 
             }
 
@@ -179,6 +166,7 @@ class SearchActivity : AppCompatActivity() {
                 // TODO: Перехват текста сразу после изменения, изменения не увидим, но получим изменённый текст
                 textEditTextValue = editable.toString()
                 recyclerView.adapter = tracksAdapter
+                Log.d("histTrack", "afterTextChanged = ${editable.toString()}")
             }
 
 
@@ -191,25 +179,25 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        searchDebounce()
+        handler.removeCallbacks(searchRunnable)
 
     }
+
+
 
     private fun histTrack() {
         val sharedPrefs = getSharedPreferences(HISTORY_PREFERENCES, MODE_PRIVATE)
         val tracksHist = HistoryTrackPreferences().readAll(sharedPrefs)
-        if (tracksHist.isEmpty()) {
-              txHist.visibility = View.GONE
-              btHistclear.visibility = View.GONE
-        }else{
-            txHist.visibility = View.VISIBLE
-            btHistclear.visibility = View.VISIBLE
+        if (tracksHist.isEmpty() != true) {
             tracks.clear()
             tracks.addAll(tracksHist)
             tracksAdapter.notifyDataSetChanged()
         }
+        Log.d("histTrack", "статус истории ${!tracksHist.isEmpty()}")
+        viewState(HIST_STATE)
 
     }
+
 
     private fun isVisible(): Int {
         val sharedPrefs = getSharedPreferences(HISTORY_PREFERENCES, MODE_PRIVATE)
@@ -222,65 +210,104 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun searchTrack() {
+        viewState(SEARCH_WAIT)
         if (clientRequest.isNotEmpty()) {
             iTunesApi.findSong(clientRequest).enqueue(object : Callback<ITunesResponse> {
                 override fun onResponse(
                     call: Call<ITunesResponse>,
                     response: Response<ITunesResponse>
                 ) {
-                    progressBar.visibility = View.GONE
+                    viewState(SEARCH_END)
                     if (response.isSuccessful) {
+                        Log.d("search", response.isSuccessful.toString())
                         tracks.clear()
                         if (response.body()?.results?.isNotEmpty() == true) {
+                            Log.d("search", response.body()?.results!!.toString())
                             tracks.addAll(response.body()?.results!!)
                             tracksAdapter.notifyDataSetChanged()
                         }
                         if (tracks.isEmpty()) {
-                            showErrorMessage(getString(R.string.nothing_found), ERROR_NOT_FOUND)
+                            viewState(ERROR_NOT_FOUND)
                         } else {
-                            showErrorMessage("", 2)
+                            viewState(SUCCESSFUL)
                         }
                     } else {
-                        showErrorMessage(getString(R.string.something_went_wrong), ERROR_NETWORK_CONECTION)
+                        viewState(ERROR_NETWORK_CONECTION)
                     }
                 }
 
                 override fun onFailure(call: Call<ITunesResponse>, t: Throwable) {
-                    showErrorMessage(getString(R.string.something_went_wrong), ERROR_NETWORK_CONECTION)
+                    viewState(ERROR_NETWORK_CONECTION)
                 }
             })
 
         } else {
-            progressBar.visibility = View.GONE
+            viewState(SEARCH_END)
         }
     }
 
-        private fun showErrorMessage(text: String, type: Int) {
-            if (text.isNotEmpty()) {
-                errorText.visibility = View.VISIBLE
-                errorNotFound.visibility = View.GONE
-                errorWentWrong.visibility = View.GONE
-                btRefresh.visibility = View.GONE
-                tracks.clear()
-                tracksAdapter.notifyDataSetChanged()
-                errorText.text = text
-                if (type == 1) {
-                    errorNotFound.visibility = View.VISIBLE
-                    errorText.visibility = View.VISIBLE
-                    }
-                else {
-                    errorWentWrong.visibility = View.VISIBLE
-                    btRefresh.visibility = View.VISIBLE
-                    progressBar.visibility = View.GONE
-                }
-            } else {
-                errorText.visibility = View.GONE
-                errorNotFound.visibility = View.GONE
-                errorWentWrong.visibility = View.GONE
-                btRefresh.visibility = View.GONE
 
+    private fun viewState(status: Int){
+
+        when (status) {
+            ERROR_NETWORK_CONECTION -> {
+                txError.text = getString(R.string.something_went_wrong)
+                imError.setBackgroundResource(R.drawable.something_went_wrong)
+                txError.visibility = View.VISIBLE
+                imError.visibility = View.VISIBLE
+                btErrorRefresh.visibility = View.VISIBLE
+                progressBar.visibility = View.GONE
+                txHist.visibility = View.GONE
+                btHistclear.visibility = View.GONE
             }
+            ERROR_NOT_FOUND -> {
+                txError.text = getString(R.string.nothing_found)
+                imError.setBackgroundResource(R.drawable.nothing_found)
+                txError.visibility = View.VISIBLE
+                imError.visibility = View.VISIBLE
+                btErrorRefresh.visibility = View.GONE
+                progressBar.visibility = View.GONE
+                txHist.visibility = View.GONE
+                btHistclear.visibility = View.GONE
+            }
+            SUCCESSFUL -> {
+                recyclerView.visibility = View.VISIBLE
+                txError.visibility = View.GONE
+                imError.visibility = View.GONE
+                btErrorRefresh.visibility = View.GONE
+                progressBar.visibility = View.GONE
+            }
+
+            HIST_STATE -> {
+                progressBar.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
+                txHist.visibility = isVisible()
+                btHistclear.visibility = isVisible()
+                txError.visibility = View.GONE
+                imError.visibility = View.GONE
+                btErrorRefresh.visibility = View.GONE
+            }
+
+            SEARCH_WAIT -> {
+                recyclerView.visibility = View.GONE
+                txError.visibility = View.GONE
+                imError.visibility = View.GONE
+                btErrorRefresh.visibility = View.GONE
+                txHist.visibility = View.GONE
+                btHistclear.visibility = View.GONE
+
+
+                progressBar.visibility = View.VISIBLE
+            }
+
+            SEARCH_END -> progressBar.visibility = View.GONE
+
+
+
         }
+    }
+
+
 
 
         private fun buttonVisibility(charSequence: CharSequence?): Int {
@@ -304,10 +331,18 @@ class SearchActivity : AppCompatActivity() {
 
 
 
+
         companion object {
             private const val SEARCH_DEBOUNCE_DELAY = 2000L
+
+
+            private const val SUCCESSFUL = 0
             private const val ERROR_NOT_FOUND = 1
             private const val ERROR_NETWORK_CONECTION = 2
+            private const val HIST_STATE = 3
+            private const val SEARCH_WAIT = 4
+            private const val SEARCH_END = 5
+
             const val EDIT_TEXT_VALUE = "EDIT_TEXT_VALUE"
             const val INPUT_EDIT_TEXT_VALUE = ""
         }
