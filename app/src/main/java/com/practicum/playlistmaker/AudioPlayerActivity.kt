@@ -3,6 +3,9 @@ package com.practicum.playlistmaker
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -13,10 +16,15 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.practicum.playlistmaker.audioPlayer.AudioPlayerController
 import com.practicum.playlistmaker.utils.TRACK
 import com.practicum.playlistmaker.utils.Constants
 
 class AudioPlayerActivity : AppCompatActivity() {
+
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var player:AudioPlayerController
+
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +48,13 @@ class AudioPlayerActivity : AppCompatActivity() {
         val txReleaseDate = findViewById<TextView>(R.id.tx_year_num)
         val txPrimaryGenreName = findViewById<TextView>(R.id.tx_music_genre)
         val txCountry = findViewById<TextView>(R.id.tx_country_name)
+        val imPlay = findViewById<ImageButton>(R.id.playButton)
+        val txTrackTimer = findViewById<TextView>(R.id.tx_track_time_play)
+
+        player = AudioPlayerController(track,handler,txTrackTimer,imPlay )
+
+        player.preparePlayer()
+
 
         Glide.with(this)
             .load(track?.getCoverArtwork())
@@ -56,9 +71,32 @@ class AudioPlayerActivity : AppCompatActivity() {
         txPrimaryGenreName.text = track?.primaryGenreName
         txCountry.text = track?.country
 
+
         btBack.setOnClickListener {
             finish()
         }
 
+        imPlay.setOnClickListener{
+            player.playbackControl()
+
+        }
+
+
     }
+
+    override fun onPause() {
+        super.onPause()
+        player.pausePlayer()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        player.pausePlayer()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        player.release()
+    }
+
 }

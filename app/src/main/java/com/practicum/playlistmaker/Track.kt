@@ -7,7 +7,6 @@ import java.util.Date
 import java.util.Locale
 
 
-
 data class Track(
     val trackName: String?, // Название композиции
     val artistName: String?, // Имя исполнителя
@@ -17,8 +16,9 @@ data class Track(
     val collectionName: String?, // Название альбома
     val releaseDate: Date?, // Год релиза трека
     val primaryGenreName: String?, // Жанр трека
-    val country: String? // Страна исполнителя
-): Parcelable {
+    val country: String?, // Страна исполнителя
+    val previewUrl: String? // Cсылку на отрывок трека
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
@@ -27,6 +27,7 @@ data class Track(
         parcel.readInt(),
         parcel.readString(),
         SimpleDateFormat("dd-mm-yyyy").parse(parcel.readString()),
+        parcel.readString(),
         parcel.readString(),
         parcel.readString()
     ) {
@@ -49,6 +50,7 @@ data class Track(
         parcel.writeString(this.getDate())
         parcel.writeString(primaryGenreName)
         parcel.writeString(country)
+        parcel.writeString(previewUrl)
     }
 
     override fun describeContents(): Int {
@@ -64,5 +66,9 @@ data class Track(
             return arrayOfNulls(size)
         }
     }
+
+
+
+
 }
 
